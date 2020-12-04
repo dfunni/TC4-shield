@@ -43,7 +43,7 @@
 // Input Button Options
 // Connect button between input pin and ground. Useful if not using LCDapter buttons.
 // Only active in standalone mode.
-#if not ( defined ROASTLOGGER || defined ARTISAN || defined ANDROID ) // Stops buttons being read unless in standalone mode. Added to fix crash (due to low memory?).
+#if not ( defined ARTISAN ) // Stops buttons being read unless in standalone mode. Added to fix crash (due to low memory?).
 
 //#define RESET_TIMER_BUTTON 4 // Reset timer using button on pin X
 //#define TOGGLE_PID_BUTTON 5  // Toggle PID on/off using button on pin X
