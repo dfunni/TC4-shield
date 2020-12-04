@@ -157,6 +157,7 @@
 // 20201204 Removed support for ROASTLOGGER and ANDROID
 //          Removed support for PID_V1
 //          Removed support for LCD and buttons
+//          Renamed to Artisan_TC4
       
 #define BANNER_ARTISAN "aArtisanQ_PID 6_7"
 
