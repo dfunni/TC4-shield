@@ -14,14 +14,12 @@
 ////////////////////
 // Roasting software
 // Comment out all if using TC4 stand alone
-//#define ROASTLOGGER
 #define ARTISAN
-//#define ANDROID
 
 ////////////////////
 // Base configurations (leave only one uncommented)
-//#define CONFIG_PWM // slow PWM on OT1 (heater); fast PWM output (3.922kHz) on IO3 (DC fan); ZCD not required
-#define CONFIG_PAC2 // phase angle control on OT1 (heater) and OT2 (fan); IO2 used to read the ZCD
+#define CONFIG_PWM /// slow PWM on OT1 (heater); fast PWM output (3.922kHz) on IO3 (DC fan); ZCD not required
+//#define CONFIG_PAC2/ // phase angle control on OT1 (heater) and OT2 (fan); IO2 used to read the ZCD
 //#define CONFIG_PAC2_IO3HTR // phase angle control on OT1 (heater) and OT2 (fan); IO2 reads the req'd ZCD; IO3 reserved for fast PWM output for heater
 //#define CONFIG_PAC3 // phase angle control on OT1 (heater) and OT2 (fan); IO3 reads the req'd ZCD; IO3 not available for output
 
