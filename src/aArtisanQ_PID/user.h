@@ -27,29 +27,6 @@
 // Temperature Unit
 //#define CELSIUS // controls only the initial conditions.  Comment out for F.
 
-////////////////////
-// LCD Options
-// Choose ONE of the following LCD options if using an LCD
-//#define LCDAPTER // if the I2C LCDapter board is to be used
-#define LCD_I2C // if using a $5 delivered Chinese LCD with I2C module
-//#define LCD_PARALLEL // if using a parallel LCD screen
-
-#define LCD_4x20 // if using a 4x20 LCD instead of a 2x16
-
-#define LCD_I2C_ADDRESS 0x27 // adjust I2C address for LCD if required. Try 0x3F, 0x20. Not used for LCDapter.
-
-
-/////////////////////
-// Input Button Options
-// Connect button between input pin and ground. Useful if not using LCDapter buttons.
-// Only active in standalone mode.
-#if not ( defined ARTISAN ) // Stops buttons being read unless in standalone mode. Added to fix crash (due to low memory?).
-
-//#define RESET_TIMER_BUTTON 4 // Reset timer using button on pin X
-//#define MODE_BUTTON 7        // Switch LCD Mode
-//#define ENTER_BUTTON 8       // Confirm choice
-
-#endif
 
 /////////////////////
 // AC Power Options
@@ -82,13 +59,6 @@
 #define DUTY_STEP 1 // Use 1, 2, 4, 5, or 10.
 
 ////////////////////
-// Physical input channel for RoR display on LCD
-// Corresponds to Thermocouple inputs T1-T4
-#define ROR_CHAN 1
-
-#define NUM_PROFILES 2 // number of profiles stored in EEPROM
-
-////////////////////
 // Heater and Fan Limits/Options
 #define MIN_OT1 0 // Set output % for lower limit for OT1.  0% power will always be available
 #define MAX_OT1 100 // Set output % for upper limit for OT1
@@ -101,12 +71,6 @@
 
 // cut power to Heater if fan duty is less than HTR_CUTOFF_FAN_VAL (to protect heater in air roaster). Set to 0 for no cutoff
 #define HTR_CUTOFF_FAN_VAL 0
-
-#define FAN_AUTO_COOL 100 // Set fan output duty for auto cool when using PID;STOP command
-
-////////////////////
-// Command Echo
-//#define COMMAND_ECHO // Echo all serial commands to LCD for debugging
 
 ////////////////////
 // Temperature Reading Filters
