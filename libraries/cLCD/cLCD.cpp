@@ -15,20 +15,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <inttypes.h>
-
-//#if defined(ARDUINO) && ARDUINO >= 100
-//#include <Arduino.h>
-//#else
-//#include <WProgram.h>
-//#endif
-
 #include <Wire.h>
 
-#if defined(ARDUINO) && ARDUINO >= 100
 #define _WRITE write
-#else
-#define _WRITE send
-#endif
+
 
 
 // ---------------------------------------------- LCDbase

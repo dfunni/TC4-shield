@@ -24,28 +24,13 @@
 //
 // @author F. Malpartida - fmalpartida@gmail.com
 // ---------------------------------------------------------------------------
-#if (ARDUINO <  100)
-   #include <WProgram.h>
-#else
-   #include <Arduino.h>
-#endif
 
-#if defined(__AVR_ATtiny84__) || (__AVR_ATtiny2313__) || defined (__AVR_ATtiny85__)
-#include "TinyWireM.h" // include this if ATtiny84 or ATtiny85 or ATtiny2313
+#include <Arduino.h>
+#include <Wire.h>
 
-#define Wire TinyWireM
-#else
-
-#if (ARDUINO < 10000)
-   #include <../Wire/Wire.h>
-#else
-   #include <Wire.h>
-#endif
 
 #endif
-
 #include <inttypes.h>
-
 #include "I2CIO.h"
 
 

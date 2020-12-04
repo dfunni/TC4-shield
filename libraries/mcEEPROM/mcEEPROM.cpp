@@ -58,13 +58,8 @@
 
 #include "mcEEPROM.h"
 
-#if defined(ARDUINO) && ARDUINO >= 100
 #define _READ read
 #define _WRITE write
-#else
-#define _READ receive
-#define _WRITE send
-#endif
 
 // --------------------------
 mcEEPROM::mcEEPROM( uint8_t select ) {

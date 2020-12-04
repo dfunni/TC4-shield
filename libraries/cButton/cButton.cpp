@@ -47,10 +47,6 @@
 #if defined(ARDUINO) && ARDUINO >= 100
 #define _READ read
 #define _WRITE write
-#else
-#define _READ receive
-#define _WRITE send
-#endif
 
 // ------------------------------------------ base class methods
 cButtonBase::cButtonBase() {

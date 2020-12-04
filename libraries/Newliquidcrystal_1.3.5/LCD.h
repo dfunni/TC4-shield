@@ -37,11 +37,8 @@
 #ifndef _LCD_H_
 #define _LCD_H_
 
-#if (ARDUINO <  100)
-#include <WProgram.h>
-#else
+
 #include <Arduino.h>
-#endif
 
 #ifdef __AVR__
 #include <avr/pgmspace.h>

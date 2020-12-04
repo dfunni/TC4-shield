@@ -36,11 +36,8 @@
 #include <string.h>
 #include <inttypes.h>
 
-#if (ARDUINO <  100)
-#include <WProgram.h>
-#else
+
 #include <Arduino.h>
-#endif
 
 //extern "C" void __cxa_pure_virtual() { while (1); }
 #include "LCD.h"

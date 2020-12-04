@@ -51,8 +51,6 @@
 #define _phase_ctrl_h
 
 #include <Arduino.h>
-
-
 #include "user.h"
 
 #ifdef PHASE_ANGLE_CONTROL

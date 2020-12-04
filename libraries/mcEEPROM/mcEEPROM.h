@@ -52,12 +52,7 @@
 #ifndef MCEEPROM_H_
 #define MCEEPROM_H_
 
-#if defined(ARDUINO) && ARDUINO >= 100
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <Wire.h>
 
 #define ADDR_BITS B1010000

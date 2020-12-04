@@ -43,12 +43,7 @@
 #ifndef CBUTTON_H_
 #define CBUTTON_H_
 
-#if defined(ARDUINO) && ARDUINO >= 100
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <Wire.h>
 #include <MCP23017.h>
 
