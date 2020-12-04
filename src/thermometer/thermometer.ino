@@ -47,7 +47,7 @@ float read_thermocouple() {
 // setup
 void setup() {
   Wire.begin(); // initiate I2C communications
-  Serial.begin( 57600 ); // initiate serial communications
+  Serial.begin( 115200 ); // initiate serial communications
   amb.setOffset( -0.50 ); // standard approx. offset correction
   adc.setCal( 1.003, 0.0 ); // some standard values for calibration
 }
@@ -57,4 +57,3 @@ void setup() {
 void loop() {
   Serial.println( read_thermocouple(), 1 ); // print current temperature reading
 }
-

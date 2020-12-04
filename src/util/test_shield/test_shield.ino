@@ -10,11 +10,9 @@
 #include <cADC.h>
 #include <Wire.h>
 #include <thermocouple.h>
-#include <cLCD.h>
 #include <mcEEPROM.h>
 
 #define BANNER_K "Shield_Test" // version
-#define BACKLIGHT lcd.backlight();
 //#define TEMP_OFFS -0.0
 //#define GAIN_CAL 1.000
 #define AMB_FILT 50
@@ -41,7 +39,6 @@ ambSensor amb;
 filterRC f[4];
 typeK tc;
 float ctemp;
-cLCD lcd; // I2C LCD interface
 
 long i = 0;
 int dly;
@@ -49,7 +46,7 @@ uint8_t toggle = 0;
 
 void setup() {
   delay( 1000 );
-  Serial.begin(57600);
+  Serial.begin(115200);
   Wire.begin();
   
 // read contents of EEPROM calibration block
@@ -62,32 +59,7 @@ void setup() {
   Serial.println(inforx.K_offset);
   Serial.println();
   
-  lcd.begin(16, 2);
-  BACKLIGHT;
 
-  lcd.setCursor( 0, 0 );
-  lcd.print( BANNER_K ); // display version banner
-  lcd.setCursor( 0, 1 );
-  lcd.print( "PCB ");
-  lcd.print( inforx.PCB );
-  delay( 2000 );
-  lcd.clear();
-  lcd.setCursor( 0, 0 );
-  lcd.print( "Version ");
-  lcd.print( inforx.version );
-  lcd.setCursor( 0, 1 );
-  lcd.print( "cal_gain " );
-  lcd.print( inforx.cal_gain, 6 );
-  delay( 2000 );
-  lcd.clear();
-  lcd.setCursor( 0, 0 );
-  lcd.print( "uV offs ");
-  lcd.print( inforx.cal_offset );
-  lcd.setCursor( 0, 1 );
-  lcd.print( "offsC ");
-  lcd.print( inforx.T_offset );
-  lcd.print(" ");
-  lcd.print( inforx.K_offset );
   delay( 1000 );
 
   adc.setCal ( inforx.cal_gain, 0 );
@@ -107,7 +79,6 @@ void setup() {
 #endif
 
   amb.setOffset( inforx.K_offset );
-  lcd.clear();
 
   pinMode( OT1, OUTPUT );
   pinMode( OT2, OUTPUT );
@@ -164,17 +135,8 @@ void loop() {
     else if( j == 3 ) {
       r = 1; c = 8;
     }
-    lcd.setCursor( c, r );
-    lcd.print("        ");
-    lcd.setCursor( c, r );
-#ifdef CELSIUS
-    lcd.print( (tempC), 1 );
-#else
-    lcd.print( C_TO_F(tempC), 1 );
-#endif
 
   }
   Serial.println();
   toggle = !toggle;
 }
-
