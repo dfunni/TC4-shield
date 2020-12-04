@@ -46,7 +46,6 @@
 #endif
 
 #include <cADC.h>
-#include <PID_v1.h>
 
 #include "user.h"
 #include "phase_ctrl.h"
@@ -64,7 +63,6 @@
 #define DIGITAL_WRITE_CMD "DWRITE" // turn digital pin LOW or HIGH
 #define ANALOG_WRITE_CMD "AWRITE" // write a value 0 to 255 to PWM pin
 #define IO3 3 // use DIO3 for PWM output
-#define PID_CMD "PID" // turn PID ON or OFF
 #define RESET_CMD "RESET" // pBourbon reset command
 #define FILT_CMD "FILT" // runtime changes to digital filtering on input channels
 #define FAN_PORT 3 // use DI03 for PWM fan output
@@ -87,7 +85,6 @@ class io3Cmnd;
 class dcfanCmnd;
 #endif
 class unitsCmnd;
-class pidCmnd;
 class resetCmnd;
 class filtCmnd;
 
@@ -103,7 +100,6 @@ extern io3Cmnd io3;
 extern dcfanCmnd dcfan;
 #endif
 extern unitsCmnd units;
-extern pidCmnd pid;
 extern resetCmnd reset;
 extern filtCmnd filt;
 
@@ -118,15 +114,12 @@ extern int levelIO3;
 extern void logger();
 extern boolean Cscale;
 extern uint8_t actv[NC];
-extern PID myPID;
 extern uint32_t counter;
 extern int profile_number;
 extern void setProfile();
-//extern boolean pBourbon;
 extern boolean artisan_logger;
 extern double SV;
 extern double Output;
-extern uint8_t pid_chan;
 extern filterRC fT[NC]; // filters for logged ET, BT
 extern void outOT1();
 extern void outOT2();
@@ -196,14 +189,6 @@ class unitsCmnd : public CmndBase {
   public:
     unitsCmnd();
     virtual boolean doCommand( CmndParser* pars );
-};
-
-class pidCmnd : public CmndBase {
-  public:
-    pidCmnd();
-    virtual boolean doCommand( CmndParser* pars );
-    void pidOFF(); // puts PID in MANUAL mode, resets outputs
-    void pidON(); // puts PID in AUTOMATIC mode
 };
 
 class filtCmnd : public CmndBase {

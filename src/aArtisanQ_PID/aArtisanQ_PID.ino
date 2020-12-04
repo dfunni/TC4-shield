@@ -154,6 +154,8 @@
 // 20181130 Added compile directives to allow CONFIG_PAC3 mode to compile
 //          Minor changes to user.h defaults
 //          Version 6_7 released
+// 20201204 Removed support for ROASTLOGGER and ANDROID
+//          Removed support for PID_V1
       
 #define BANNER_ARTISAN "aArtisanQ_PID 6_7"
 
@@ -218,48 +220,24 @@ boolean Cscale = false;
 
 int levelOT1, levelOT2;  // parameters to control output levels
 #if !(defined PHASE_ANGLE_CONTROL && (INT_PIN == 3) )
-int levelIO3;
-#endif
-
-#ifdef MEMORY_CHK
-uint32_t checktime;
-#endif
-
-#ifdef ANALOGUE1
-  uint8_t anlg1 = 0; // analog input pins
-  int32_t old_reading_anlg1; // previous analogue reading
-  boolean analogue1_changed;
-#endif
-
-#ifdef ANALOGUE2
-  uint8_t anlg2 = 1; // analog input pins
-  int32_t old_reading_anlg2; // previous analogue reading
-  boolean analogue2_changed;
-#endif
-
-#ifdef PID_CONTROL
-  #include <PID_v1.h>
-
-  //Define PID Variables we'll be connecting to
-  double Setpoint, Input, Output, SV; // SV is for roasting software override of Setpoint
-
-  //Specify the links and initial tuning parameters
-  #ifdef POM
-  PID myPID(&Input, &Output, &Setpoint,2,5,1,P_ON_M,DIRECT);
-  #else
-  PID myPID(&Input, &Output, &Setpoint,2,5,1,P_ON_E,DIRECT);
+  int levelIO3;
   #endif
-  uint8_t pid_chan = PID_CHAN; // identify PV and set default value from user.h
-
-  int profile_number; // number of the profile for PID control
-  int profile_ptr; // EEPROM pointer for profile data
-  char profile_name[40];
-  char profile_description[80];
-  int profile_number_new; // used when switching between profiles
   
-  int times[2], temps[2]; // time and temp values read from EEPROM for setpoint calculation
+  #ifdef MEMORY_CHK
+  uint32_t checktime;
+  #endif
   
-  char profile_CorF; // profile temps stored as Centigrade or Fahrenheit
+  #ifdef ANALOGUE1
+    uint8_t anlg1 = 0; // analog input pins
+    int32_t old_reading_anlg1; // previous analogue reading
+    boolean analogue1_changed;
+  #endif
+  
+  #ifdef ANALOGUE2
+    uint8_t anlg2 = 1; // analog input pins
+    int32_t old_reading_anlg2; // previous analogue reading
+    boolean analogue2_changed;
+  #endif
 
 #endif
 
@@ -331,11 +309,6 @@ unsigned long debounceDelay = 50;
   unsigned long lastDebounceTimeRESET_TIMER_BUTTON = 0;
   int buttonStateRESET_TIMER_BUTTON;  // the current reading from the input pin
   int lastButtonStateRESET_TIMER_BUTTON = HIGH;  // the previous reading from the input pin
-#endif
-#ifdef TOGGLE_PID_BUTTON 
-  unsigned long lastDebounceTimeTOGGLE_PID_BUTTON = 0;
-  int buttonStateTOGGLE_PID_BUTTON;  // the current reading from the input pin
-  int lastButtonStateTOGGLE_PID_BUTTON = HIGH;  // the previous reading from the input pin
 #endif
 #ifdef MODE_BUTTON
   unsigned long lastDebounceTimeMODE_BUTTON = 0;
@@ -431,14 +404,6 @@ void logger() {
   }
   Serial.print(F(","));
   Serial.print( FAN_DUTY );
-  if( myPID.GetMode() != MANUAL ) { // If PID in AUTOMATIC mode
-    Serial.print(F(","));
-    Serial.print( Setpoint );
-  } else {
-    Serial.print(F(","));
-    Serial.print( 0 ); // send 0 if PID is off
-  }
-  
   Serial.println();
 
 #endif
@@ -1260,11 +1225,7 @@ void setup()
   
 #endif
 
-#ifdef LCDAPTER
-  buttons.begin( 4 );
-  buttons.readButtons();
-  buttons.ledAllOff();
-#endif
+F
 
 #ifdef MEMORY_CHK
   Serial.print(F("# freeMemory()="));

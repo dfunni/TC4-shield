@@ -46,7 +46,6 @@
 #if not ( defined ARTISAN ) // Stops buttons being read unless in standalone mode. Added to fix crash (due to low memory?).
 
 //#define RESET_TIMER_BUTTON 4 // Reset timer using button on pin X
-//#define TOGGLE_PID_BUTTON 5  // Toggle PID on/off using button on pin X
 //#define MODE_BUTTON 7        // Switch LCD Mode
 //#define ENTER_BUTTON 8       // Confirm choice
 
@@ -86,17 +85,6 @@
 // Physical input channel for RoR display on LCD
 // Corresponds to Thermocouple inputs T1-T4
 #define ROR_CHAN 1
-
-////////////////////
-// PID Control Options
-#define PID_CONTROL
-#define PID_CHAN 1 // physical channel for PID input (corresponding to thermocouple inputs T1-T4)
-#define CT 1000 // default cycle time for the PID, in ms
-#define PRO 5.00 // initial proportional parameter
-#define INT 0.15 // initial integral parameter
-#define DER 0.00 // initial derivative parameter
-
-//#define POM // enable Proportional on Measurement (NOTE: PID PARAMETERS WILL REQUIRE CHANGING). Disable for Proportional on Error.
 
 #define NUM_PROFILES 2 // number of profiles stored in EEPROM
 
