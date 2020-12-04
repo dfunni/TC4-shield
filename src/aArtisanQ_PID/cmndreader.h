@@ -50,7 +50,6 @@
 
 #include "user.h"
 #include "phase_ctrl.h"
-#include "PID_v1.h"
 
 // ----------------------- commands
 #define READ_CMD "READ" // triggers the TC4 to output current temps on serial line
@@ -254,4 +253,3 @@ class fanCmnd : public CmndBase {
 };
 
 #endif
-
