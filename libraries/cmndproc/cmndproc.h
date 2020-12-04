@@ -51,11 +51,7 @@
 #ifndef CMNDPROC_H
 #define CMNDPROC_H
 
-#if defined(ARDUINO) && ARDUINO >= 100
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
 
 #define MAX_TOKENS 5  // maximum number of tokens in a command line
 #define MAX_TOKEN_LEN 5  // max characters read per token (input may be longer)

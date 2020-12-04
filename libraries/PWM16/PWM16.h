@@ -96,11 +96,8 @@
 #ifndef PWM16_h
 #define PWM16_h
 
-#if defined(ARDUINO) && ARDUINO >= 100
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
+
 
 // values below courtesy of Bhante (BM)
 // TOP values for various frequencies
