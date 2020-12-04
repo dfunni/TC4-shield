@@ -389,11 +389,11 @@ void checkStatus( uint32_t ms ) { // this is an active delay loop
     dcfan.slew_fan(); // keep the fan smoothly increasing in speed
     #endif
     #ifdef LCDAPTER
-      #if not ( defined ROASTLOGGER || defined ARTISAN || defined ANDROID )
+      #if not ( defined ARTISAN )
         checkButtons();
       #endif
     #endif
-    #if not ( defined ROASTLOGGER || defined ARTISAN || defined ANDROID ) // Stops buttons being read unless in standalone mode. Added to fix crash (due to low memory?).
+    #if not ( defined ARTISAN ) // Stops buttons being read unless in standalone mode. Added to fix crash (due to low memory?).
       checkButtonPins();
     #endif
   }
@@ -438,75 +438,6 @@ void logger() {
     Serial.print(F(","));
     Serial.print( 0 ); // send 0 if PID is off
   }
-  
-  Serial.println();
-
-#endif
-
-#ifdef ROASTLOGGER
-  for( uint8_t jj = 0; jj < NC; ++jj ) {
-    uint8_t k = actv[jj];
-    if( k > 0 ) {
-      --k;
-      Serial.print(F("rorT"));
-      Serial.print(k+1);
-      Serial.print(F("="));
-      Serial.println( RoR[k], DP );
-      Serial.print(F("T"));
-      Serial.print(k+1);
-      Serial.print(F("="));
-      Serial.println( convertUnits( T[k] ) );
-    }
-  }
-  Serial.print(F("Power%="));
-  if( FAN_DUTY < HTR_CUTOFF_FAN_VAL ) { // send 0 if OT1 has been cut off
-    Serial.println( 0 );
-  }
-  else {  
-    Serial.println( HEATER_DUTY );
-  }
-  Serial.print(F("Fan="));
-  Serial.print( FAN_DUTY );
-#endif
-
-
-#ifdef ANDROID
-
-  // print counter
-  //Serial.print( counter );
-  //Serial.print( F(",") );
-
-  // print ambient
-  Serial.print( convertUnits( AT ), DP );
-  // print active channels
-  for( uint8_t jj = 0; jj < NC; ++jj ) {
-    uint8_t k = actv[jj];
-    if( k > 0 ) {
-      --k;
-      Serial.print(F(","));
-      Serial.print( convertUnits( T[k] ) );
-      Serial.print(F(","));
-      Serial.print( RoR[k], DP );
-    }
-  }
-    
-  //#ifdef PLOT_POWER
-  Serial.print(F(","));
-  if( FAN_DUTY < HTR_CUTOFF_FAN_VAL ) { // send 0 if OT1 has been cut off
-    Serial.print( 0 );
-  }
-  else {  
-    Serial.print( HEATER_DUTY );
-  }
-  Serial.print(F(","));
-  Serial.print( FAN_DUTY );
-  //#endif  
-  
-  #ifdef PID_CONTROL
-  Serial.print(F(","));
-  Serial.print( Setpoint );
-
-  #endif
   
   Serial.println();
 
@@ -1134,7 +1065,7 @@ void outIO3() { // update output for IO3
 #endif
 
 // ----------------------------------
-#if not ( defined ROASTLOGGER || defined ARTISAN || defined ANDROID ) // Stops buttons being read unless in standalone mode. Added to fix crash (due to low memory?).
+#if not ( defined ARTISAN ) // Stops buttons being read unless in standalone mode. Added to fix crash (due to low memory?).
 
 void checkButtonPins() {
 int reading;
@@ -1322,15 +1253,10 @@ void setup()
     lcd.setCursor( 0, 0 );
     lcd.print( BANNER_ARTISAN ); // display version banner
     lcd.setCursor( 0, 1 );
-  #ifdef ANDROID
-    lcd.print( F("ANDROID") ); // display version banner
-  #endif // ANDROID
   #ifdef ARTISAN
     lcd.print( F("ARTISAN") ); // display version banner
   #endif // ARTISAN
-  #ifdef ROASTLOGGER
-    lcd.print( F("ROASTLOGGER") ); // display version banner
-  #endif // ROASTLOGGER
+
   
 #endif
 
@@ -1420,11 +1346,6 @@ void setup()
   ci.addCommand( &reader );
   ci.addCommand( &pid );
   ci.addCommand( &reset );
-#ifdef ROASTLOGGER
-  ci.addCommand( &load );
-  ci.addCommand( &power );
-  ci.addCommand( &fan );
-#endif
   ci.addCommand( &filt );
 
 #if ( !defined( PHASE_ANGLE_CONTROL ) ) || ( INT_PIN != 3 ) // disable when PAC active and pin 3 reads the ZCD
@@ -1455,7 +1376,7 @@ void setup()
   myPID.SetTunings(PRO, INT, DER, P_ON_E); // set initial PID tuning values and set Proportional on Error mode
 #endif
   myPID.SetMode(MANUAL); // start with PID control off
-#if not ( defined ROASTLOGGER || defined ARTISAN || defined ANDROID )
+#if not ( defined ARTISAN )
   profile_number = 1; // set default profile, 0 is for override by roasting software
 #else
   profile_number = 0; // set default profile, 0 is for override by roasting software
@@ -1549,11 +1470,6 @@ void loop()
   #if defined LCD_PARALLEL || defined LCDAPTER || defined LCD_I2C
     updateLCD();
   #endif
-  
-  // Send data to Roastlogger if defined
-  #if defined ROASTLOGGER
-    logger(); // send data every second to Roastlogger every loop (looptime)
-  #endif
 
   // check if temp reads has taken longer than looptime. If so add 1 to counter + increase next looptime
   // Serial.println( next_loop_time - millis() ); // how much time spare in loop. approx 350ms
@@ -1566,11 +1482,11 @@ void loop()
   while( millis() < next_loop_time ) {
     checkSerial();  // Has a command been received?
   #ifdef LCDAPTER
-    #if not ( defined ROASTLOGGER || defined ARTISAN || defined ANDROID ) // Stops buttons being read unless in standalone mode. Added to fix crash (due to low memory?).
+    #if not (  defined ARTISAN ) // Stops buttons being read unless in standalone mode. Added to fix crash (due to low memory?).
       checkButtons();
     #endif
   #endif
-  #if not ( defined ROASTLOGGER || defined ARTISAN || defined ANDROID ) // Stops buttons being read unless in standalone mode. Added to fix crash (due to low memory?).
+  #if not ( defined ARTISAN ) // Stops buttons being read unless in standalone mode. Added to fix crash (due to low memory?).
     checkButtonPins();
   #endif
   }
@@ -1579,4 +1495,3 @@ void loop()
   next_loop_time = next_loop_time + looptime; // add time until next loop
   counter = counter + ( looptime / 1000 ); if( counter > 3599 ) counter = 3599;
 }
-
