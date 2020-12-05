@@ -1,0 +1,19 @@
+aArtisanQ_PID
+    user.h
+    cmndreader.h
+        cmndproc.h
+        PWM16.h
+        cADC.h
+        user.h
+        phase_ctrl.h
+            timer1defs.h
+    MemoryFree.h
+    phase_ctrl.h
+        user.h
+        timerldefs.h
+    PWM16.h
+    cmndproc.h
+    thermocouple.h
+        avr/pgmspace.h
+    cADC.h
+    mcEEPROM.h
